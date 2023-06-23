@@ -1,14 +1,15 @@
 {
-    "name": "example-static-js-app",
-    "main": "index.js",
-    "scripts": {
-        "start": "http-server --cors"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/msusdev/example-static-js-app"
-    },
-    "devDependencies": {
-        "http-server": "^13.0.1"
-    }
+  "name": "example-static-js-app",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server --cors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/msusdev/example-static-js-app"
+  },
+  "devDependencies": {
+    "http-server": "^13.0.1",
+    "live-server": "^1.2.2"
+  }
 }

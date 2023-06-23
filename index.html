@@ -1,28 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://unpkg.com/bootstrap@5/dist/css/bootstrap.css" rel="stylesheet" crossorigin>
-        <link href="https://unpkg.com/font-awesome@4.7/css/font-awesome.css" rel="stylesheet" crossorigin>
-        <title>
-            Node + Bootstrap Application
-        </title>
-    </head>
-    <body>
-        <nav class="navbar navbar-dark bg-primary mb-2">
-            <div class="container-fluid">
-                <span class="navbar-brand" href="#">
-                    Node + Bootstrap Application
-                </span>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://unpkg.com/bootstrap@5/dist/css/bootstrap.css"
+      rel="stylesheet"
+      crossorigin
+    />
+    <link
+      href="https://unpkg.com/font-awesome@4.7/css/font-awesome.css"
+      rel="stylesheet"
+      crossorigin
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Node + Bootstrap Application</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary mb-2">
+      <div class="container-fluid">
+        <span class="navbar-brand"
+          ><a
+            class="navbar-brand"
+            href="https://mgt.dev/?path=/story/overview--page"
+            target="_blank"
+          >
+            Microsoft Graph Toolkit
+          </a></span
+        >
+        <div class="container-fluid">
+          <div class="alert alert-danger" role="alert" style="color: #0360b9">
+            Solo puedes iniciar sesión con una cuenta profesional o educativa
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="container d-grid gap-2">
+      <script src="https://unpkg.com/@microsoft/mgt@2/dist/bundle/mgt-loader.js"></script>
+      <mgt-msal2-provider
+        client-id="d05c9eea-16df-49e1-a4f0-ba20a615e77b"
+      ></mgt-msal2-provider>
+      <mgt-login></mgt-login>
+      <mgt-get
+        resource="/me/mailFolders/inbox/messages"
+        version="beta"
+        scopes="mail.read"
+        max-pages="2"
+      >
+        <template>
+          <div class="email" data-for="email in value">
+            <h3>{{ email.subject }}</h3>
+            <h4>
+              <mgt-person
+                person-query="{{email.sender.emailAddress.address}}"
+                view="oneline"
+                person-card="hover"
+              >
+              </mgt-person>
+            </h4>
+            <div data-if="email.bodyPreview" class="preview" innerHtml>
+              {{email.bodyPreview}}
             </div>
-        </nav>
-        <main class="container d-grid gap-2">
-            <button type="button" class="btn btn-primary btn-lg" onclick="run()">
-                <i class="fa fa-fw fa-inverse fa-play"></i>
-                Run Code
-            </button>
-        </main>
-        <script type="text/javascript" src="index.js"></script>
-    </body>
+            <div data-else class="preview">email body is empty</div>
+          </div>
+        </template>
+        <template data-type="loading"> loading </template>
+        <template data-type="error"> {{ this }} </template>
+      </mgt-get>
+    </main>
+  </body>
 </html>
